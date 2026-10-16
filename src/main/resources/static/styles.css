@@ -1,0 +1,851 @@
+
+/* =========================================
+   PRODUCTIONPULSE DASHBOARD
+   Main Stylesheet - Step 7.15
+   ========================================= */
+
+
+/* =========================================
+   COLOUR SCHEME
+   ========================================= */
+
+/* Define the dashboard colours */
+:root {
+
+    /* Main page background */
+    --background: #0f172a;
+
+    /* Dashboard panel background */
+    --surface: #1e293b;
+
+    /* Border colour */
+    --border: #334155;
+
+    /* Main text colour */
+    --text: #f8fafc;
+
+    /* Secondary text colour */
+    --muted: #94a3b8;
+
+    /* Highlight colour */
+    --accent: #38bdf8;
+
+    /* Success colour */
+    --success: #22c55e;
+
+    /* Warning colour */
+    --warning: #f59e0b;
+
+    /* Error and critical colour */
+    --danger: #ef4444;
+
+}
+
+
+/* =========================================
+   GENERAL PAGE STYLING
+   ========================================= */
+
+/* Apply consistent sizing to every element */
+* {
+    box-sizing: border-box;
+}
+
+/* Style the entire page */
+body {
+
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+
+    background: var(--background);
+
+    color: var(--text);
+
+    line-height: 1.6;
+
+}
+
+
+/* =========================================
+   APPLICATION HEADER
+   ========================================= */
+
+/* Style the top application header */
+header {
+
+    background: var(--surface);
+
+    border-bottom: 1px solid var(--border);
+
+    padding: 24px 40px;
+
+}
+
+/* Main application title */
+header h1 {
+
+    color: var(--accent);
+
+    margin: 0;
+
+    font-size: 30px;
+
+}
+
+/* Header description */
+header p {
+
+    color: var(--muted);
+
+    margin: 5px 0 0;
+
+}
+
+
+/* =========================================
+   MAIN DASHBOARD LAYOUT
+   ========================================= */
+
+/* Centre the dashboard content */
+main {
+
+    max-width: 1300px;
+
+    margin: 40px auto;
+
+    padding: 0 24px;
+
+}
+
+/* Style dashboard sections */
+section {
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    padding: 28px;
+
+    margin-bottom: 24px;
+
+}
+
+/* Section headings */
+section h2 {
+
+    margin-top: 0;
+
+    font-size: 22px;
+
+}
+
+/* Subsection headings */
+section h3 {
+
+    margin-top: 24px;
+
+    font-size: 18px;
+
+}
+
+/* General paragraph styling */
+section p {
+
+    color: var(--muted);
+
+}
+
+
+/* =========================================
+   EQUIPMENT STATISTICS
+   ========================================= */
+
+/* Layout for equipment summary cards */
+#equipment-stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+
+    gap: 16px;
+
+}
+
+/* Individual dashboard statistic card */
+.stat-card {
+
+    background: var(--background);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    padding: 20px;
+
+}
+
+/* Statistic number */
+.stat-card h3 {
+
+    font-size: 32px;
+
+    margin: 0;
+
+    color: var(--accent);
+
+}
+
+/* Statistic description */
+.stat-card p {
+
+    margin: 5px 0 0;
+
+    font-size: 14px;
+
+    color: var(--muted);
+
+}
+
+
+/* =========================================
+   MAINTENANCE STATISTICS
+   ========================================= */
+
+/* Layout for maintenance summary cards */
+#maintenance-stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+
+    gap: 16px;
+
+}
+
+/* Open maintenance jobs */
+#maintenance-stats .stat-card.open h3 {
+
+    color: var(--accent);
+
+}
+
+/* Maintenance jobs in progress */
+#maintenance-stats .stat-card.in-progress h3 {
+
+    color: var(--warning);
+
+}
+
+/* Completed maintenance jobs */
+#maintenance-stats .stat-card.completed h3 {
+
+    color: var(--success);
+
+}
+
+/* Overdue maintenance jobs */
+#maintenance-stats .stat-card.overdue h3 {
+
+    color: var(--danger);
+
+}
+
+/* Highlight overdue maintenance card */
+#maintenance-stats .stat-card.overdue {
+
+    border-left: 4px solid var(--danger);
+
+}
+
+
+/* =========================================
+   EQUIPMENT AND MAINTENANCE TABLES
+   ========================================= */
+
+/* Style all dashboard tables */
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+}
+
+/* Table headings and data cells */
+th,
+td {
+
+    padding: 14px;
+
+    text-align: left;
+
+    border-bottom: 1px solid var(--border);
+
+}
+
+/* Table heading background */
+th {
+
+    background: var(--background);
+
+    color: var(--accent);
+
+    font-weight: bold;
+
+}
+
+/* Highlight rows when hovered */
+tbody tr:hover {
+
+    background: #273449;
+
+}
+
+/* Allow scrolling for wide tables */
+#equipment-list,
+#maintenance-list {
+
+    overflow-x: auto;
+
+    min-height: 40px;
+
+}
+
+
+/* =========================================
+   STATUS INDICATORS
+   ========================================= */
+
+/* Shared styling for status badges */
+.status {
+
+    display: inline-block;
+
+    padding: 4px 10px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    white-space: nowrap;
+
+}
+
+/* Running equipment */
+.status.running {
+
+    background: #14532d;
+
+    color: #86efac;
+
+}
+
+/* Equipment undergoing maintenance */
+.status.maintenance {
+
+    background: #78350f;
+
+    color: #fcd34d;
+
+}
+
+/* Equipment currently down */
+.status.down {
+
+    background: #7f1d1d;
+
+    color: #fca5a5;
+
+}
+
+/* Open maintenance jobs */
+.status.open {
+
+    background: #1e3a8a;
+
+    color: #bfdbfe;
+
+}
+
+/* Maintenance work in progress */
+.status.in-progress {
+
+    background: #78350f;
+
+    color: #fcd34d;
+
+}
+
+/* Completed maintenance jobs */
+.status.completed {
+
+    background: #14532d;
+
+    color: #86efac;
+
+}
+
+
+/* =========================================
+   MAINTENANCE PRIORITY BADGES
+   ========================================= */
+
+/* Low-priority maintenance */
+.status.low {
+
+    background: #164e63;
+
+    color: #a5f3fc;
+
+}
+
+/* Medium-priority maintenance */
+.status.medium {
+
+    background: #334155;
+
+    color: #e2e8f0;
+
+}
+
+/* High-priority maintenance */
+.status.high {
+
+    background: #78350f;
+
+    color: #fcd34d;
+
+}
+
+/* Critical maintenance */
+.status.critical {
+
+    background: #7f1d1d;
+
+    color: #fca5a5;
+
+}
+
+
+/* =========================================
+   EQUIPMENT REGISTRATION FORM
+   ========================================= */
+
+/* Style the equipment form */
+#equipment-form {
+
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+
+    margin-bottom: 30px;
+
+    padding: 24px;
+
+    background: var(--background);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+}
+
+
+/* =========================================
+   MAINTENANCE WORK ORDER FORM
+   ========================================= */
+
+/* Style the maintenance form */
+#maintenance-form {
+
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+
+    margin-bottom: 30px;
+
+    padding: 24px;
+
+    background: var(--background);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+}
+
+
+/* =========================================
+   SHARED FORM STYLING
+   ========================================= */
+
+/* Equipment and maintenance form labels */
+#equipment-form label,
+#maintenance-form label {
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    color: var(--text);
+
+}
+
+/* Text inputs, dropdowns and text areas */
+#equipment-form input,
+#equipment-form select,
+#maintenance-form input,
+#maintenance-form select,
+#maintenance-form textarea {
+
+    width: 100%;
+
+    padding: 12px;
+
+    background: var(--surface);
+
+    color: var(--text);
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+}
+
+/* Highlight the selected form field */
+#equipment-form input:focus,
+#equipment-form select:focus,
+#maintenance-form input:focus,
+#maintenance-form select:focus,
+#maintenance-form textarea:focus {
+
+    outline: 2px solid var(--accent);
+
+    outline-offset: 1px;
+
+}
+
+/* Style the form submit buttons */
+#equipment-form button,
+#maintenance-form button {
+
+    margin-top: 10px;
+
+    padding: 12px 20px;
+
+    background: var(--accent);
+
+    color: #0f172a;
+
+    border: none;
+
+    border-radius: 6px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+/* Change button colour when hovered */
+#equipment-form button:hover,
+#maintenance-form button:hover {
+
+    background: #7dd3fc;
+
+}
+
+/* Disabled submit buttons */
+#equipment-form button:disabled,
+#maintenance-form button:disabled {
+
+    opacity: 0.6;
+
+    cursor: wait;
+
+}
+
+/* Equipment registration feedback */
+#equipment-message {
+
+    margin: 0;
+
+    font-size: 14px;
+
+}
+
+/* Maintenance creation feedback */
+#maintenance-message {
+
+    margin: 0;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================
+   MAINTENANCE ACTION BUTTONS
+   ========================================= */
+
+/* Default Start Work button */
+.action-button {
+
+    padding: 10px 15px;
+
+    background: var(--accent);
+
+    color: #0f172a;
+
+    border: none;
+
+    border-radius: 6px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+}
+
+/* Start Work button hover */
+.action-button:hover {
+
+    background: #7dd3fc;
+
+}
+
+/* Complete Job button */
+.complete-button {
+
+    background: var(--success);
+
+    color: #052e16;
+
+}
+
+/* Complete Job button hover */
+.complete-button:hover {
+
+    background: #86efac;
+
+}
+
+/* Disabled maintenance buttons */
+.action-button:disabled {
+
+    opacity: 0.5;
+
+    cursor: wait;
+
+}
+
+/* Maintenance status update messages */
+#maintenance-status-message {
+
+    margin-bottom: 15px;
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================
+   PAGE FOOTER
+   ========================================= */
+
+/* Style the application footer */
+footer {
+
+    text-align: center;
+
+    padding: 24px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    border-top: 1px solid var(--border);
+
+}
+
+
+/* =========================================
+   RESPONSIVE DESIGN
+   MOBILE AND TABLET SCREENS
+   ========================================= */
+
+/* Apply mobile styling to smaller screens */
+@media (max-width: 768px) {
+
+    /* Reduce header padding */
+    header {
+
+        padding: 20px;
+
+    }
+
+    /* Reduce main dashboard margins */
+    main {
+
+        margin: 20px auto;
+
+        padding: 0 12px;
+
+    }
+
+    /* Reduce dashboard section padding */
+    section {
+
+        padding: 18px;
+
+    }
+
+    /* Reduce form padding */
+    #equipment-form,
+    #maintenance-form {
+
+        padding: 16px;
+
+    }
+
+    /* Keep tables scrollable */
+    #equipment-list,
+    #maintenance-list {
+
+        overflow-x: auto;
+
+    }
+
+    /* Reduce table cell spacing */
+    th,
+    td {
+
+        padding: 10px;
+
+    }
+
+    /* Smaller application heading */
+    header h1 {
+
+        font-size: 26px;
+
+    }
+
+}
+
+
+/* =========================================
+   EQUIPMENT AND MAINTENANCE FILTERS
+   ========================================= */
+
+/* Arrange search and filter controls */
+.filter-bar {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+
+    gap: 16px;
+
+    margin: 20px 0;
+
+    padding: 20px;
+
+    background: var(--background);
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+}
+
+/* Arrange labels above form fields */
+.filter-field {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    min-width: 0;
+
+}
+
+/* Search and filter labels */
+.filter-field label {
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    color: var(--text);
+
+}
+
+/* Search fields and dropdowns */
+.filter-field input,
+.filter-field select {
+
+    width: 100%;
+
+    padding: 12px;
+
+    background: var(--surface);
+
+    color: var(--text);
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+}
+
+/* Highlight the selected filter */
+.filter-field input:focus,
+.filter-field select:focus {
+
+    outline: 2px solid var(--accent);
+
+    outline-offset: 1px;
+
+}
+
+/* Improve filter layout on narrow screens */
+@media (max-width: 600px) {
+
+    .filter-bar {
+
+        grid-template-columns: 1fr;
+
+        padding: 14px;
+
+    }
+
+}

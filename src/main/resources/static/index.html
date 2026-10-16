@@ -1,0 +1,566 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Character encoding -->
+    <meta charset="UTF-8">
+
+    <!-- Make the dashboard responsive -->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <!-- Browser tab title -->
+    <title>ProductionPulse | Dashboard</title>
+
+    <!-- Dashboard stylesheet -->
+    <link rel="stylesheet" href="/styles.css">
+
+</head>
+
+<body>
+
+    <!-- =====================================
+         APPLICATION HEADER
+         ===================================== -->
+
+    <header>
+
+        <h1>ProductionPulse</h1>
+
+        <p>Factory Production & Maintenance Management</p>
+
+    </header>
+
+
+    <!-- =====================================
+         MAIN DASHBOARD
+         ===================================== -->
+
+    <main>
+
+        <!-- Operations dashboard introduction -->
+        <section>
+
+            <h2>Operations Dashboard</h2>
+
+            <p>
+                Monitor factory equipment
+                and maintenance activities.
+            </p>
+
+        </section>
+
+
+        <!-- =====================================
+             EQUIPMENT STATISTICS
+             ===================================== -->
+
+        <section>
+
+            <h2>Equipment Overview</h2>
+
+            <!-- JavaScript inserts equipment statistics -->
+            <div id="equipment-stats">
+
+                <p>Equipment information will appear here.</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             MAINTENANCE STATISTICS
+             ===================================== -->
+
+        <section>
+
+            <h2>Maintenance Overview</h2>
+
+            <!-- Description of maintenance statistics -->
+            <p>
+                Monitor outstanding, active, completed
+                and overdue maintenance work orders.
+            </p>
+
+            <!-- JavaScript inserts maintenance statistics -->
+            <div id="maintenance-stats">
+
+                <p>Loading maintenance statistics...</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             EQUIPMENT REGISTER
+             ===================================== -->
+
+        <section>
+
+            <h2>Equipment Register</h2>
+
+            <!-- Form for registering new machinery -->
+            <form id="equipment-form">
+
+                <!-- Equipment identification code -->
+                <label for="equipment-code">
+                    Equipment ID
+                </label>
+
+                <input
+                    type="text"
+                    id="equipment-code"
+                    placeholder="e.g. CNC-02"
+                    maxlength="50"
+                    required
+                >
+
+                <!-- Machine name -->
+                <label for="equipment-name">
+                    Machine Name
+                </label>
+
+                <input
+                    type="text"
+                    id="equipment-name"
+                    placeholder="e.g. CNC Milling Machine"
+                    required
+                >
+
+                <!-- Machine location -->
+                <label for="equipment-location">
+                    Location
+                </label>
+
+                <input
+                    type="text"
+                    id="equipment-location"
+                    placeholder="e.g. Machine Shop"
+                    required
+                >
+
+                <!-- Operating status -->
+                <label for="equipment-status">
+                    Operating Status
+                </label>
+
+                <select id="equipment-status" required>
+
+                    <option value="RUNNING">
+                        Running
+                    </option>
+
+                    <option value="MAINTENANCE">
+                        Maintenance
+                    </option>
+
+                    <option value="DOWN">
+                        Down
+                    </option>
+
+                </select>
+
+                <!-- Submit equipment registration -->
+                <button type="submit">
+                    Register Equipment
+                </button>
+
+                <!-- Display equipment success/error messages -->
+                <p
+                    id="equipment-message"
+                    role="status"
+                    aria-live="polite"
+                ></p>
+
+            </form>
+
+
+<!-- =====================================
+     EDIT EXISTING EQUIPMENT
+     ===================================== -->
+
+<!-- Hidden until the user clicks Edit -->
+<div id="equipment-edit-panel" hidden>
+
+    <h3>Edit Equipment</h3>
+
+    <!-- Form for updating existing machinery -->
+    <form id="equipment-edit-form">
+
+        <!-- Database ID of the selected machine -->
+        <input
+            type="hidden"
+            id="edit-equipment-id"
+        >
+
+        <!-- Equipment code cannot be changed -->
+        <label for="edit-equipment-code">
+            Equipment ID
+        </label>
+
+        <input
+            type="text"
+            id="edit-equipment-code"
+            readonly
+        >
+
+        <!-- Updated machine name -->
+        <label for="edit-equipment-name">
+            Machine Name
+        </label>
+
+        <input
+            type="text"
+            id="edit-equipment-name"
+            maxlength="150"
+            required
+        >
+
+        <!-- Updated machine location -->
+        <label for="edit-equipment-location">
+            Location
+        </label>
+
+        <input
+            type="text"
+            id="edit-equipment-location"
+            maxlength="150"
+            required
+        >
+
+        <!-- Updated operating status -->
+        <label for="edit-equipment-status">
+            Operating Status
+        </label>
+
+        <select id="edit-equipment-status" required>
+
+            <option value="RUNNING">
+                Running
+            </option>
+
+            <option value="MAINTENANCE">
+                Maintenance
+            </option>
+
+            <option value="DOWN">
+                Down
+            </option>
+
+        </select>
+
+        <!-- Form action buttons -->
+        <div class="edit-form-actions">
+
+            <button type="submit">
+                Save Changes
+            </button>
+
+            <button
+                type="button"
+                id="cancel-equipment-edit"
+                class="secondary-button"
+            >
+                Cancel
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+<!-- Equipment update confirmation or error -->
+<p
+    id="equipment-edit-message"
+    role="status"
+    aria-live="polite"
+></p>
+
+
+<!-- =====================================
+     EQUIPMENT SEARCH AND FILTER
+     ===================================== -->
+
+<div class="filter-bar">
+
+    <!-- Search registered machines -->
+    <div class="filter-field">
+
+        <label for="equipment-search">
+            Search Equipment
+        </label>
+
+        <input
+            type="search"
+            id="equipment-search"
+            placeholder="Search code, machine or location..."
+        >
+
+    </div>
+
+    <!-- Filter machines by operating status -->
+    <div class="filter-field">
+
+        <label for="equipment-status-filter">
+            Operating Status
+        </label>
+
+        <select id="equipment-status-filter">
+
+            <option value="ALL">
+                All Statuses
+            </option>
+
+            <option value="RUNNING">
+                Running
+            </option>
+
+            <option value="MAINTENANCE">
+                Maintenance
+            </option>
+
+            <option value="DOWN">
+                Down
+            </option>
+
+        </select>
+
+    </div>
+
+</div>
+
+
+            <!-- Display registered machinery -->
+            <div id="equipment-list">
+
+                <p>Loading equipment...</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             MAINTENANCE WORK ORDERS
+             ===================================== -->
+
+        <section>
+
+            <h2>Maintenance Work Orders</h2>
+
+            <!-- Form for creating maintenance jobs -->
+            <form id="maintenance-form">
+
+                <!-- Select equipment requiring maintenance -->
+                <label for="maintenance-equipment">
+                    Equipment
+                </label>
+
+                <select id="maintenance-equipment" required>
+
+                    <!-- JavaScript loads registered machines -->
+                    <option value="">
+                        Select Equipment
+                    </option>
+
+                </select>
+
+                <!-- Maintenance job title -->
+                <label for="maintenance-title">
+                    Job Title
+                </label>
+
+                <input
+                    type="text"
+                    id="maintenance-title"
+                    placeholder="e.g. Hydraulic oil leak"
+                    maxlength="150"
+                    required
+                >
+
+                <!-- Detailed fault description -->
+                <label for="maintenance-description">
+                    Fault Description
+                </label>
+
+                <textarea
+                    id="maintenance-description"
+                    placeholder="Describe the maintenance required"
+                    maxlength="1000"
+                    rows="4"
+                ></textarea>
+
+                <!-- Select maintenance priority -->
+                <label for="maintenance-priority">
+                    Priority
+                </label>
+
+                <select id="maintenance-priority" required>
+
+                    <option value="LOW">
+                        Low
+                    </option>
+
+                    <option value="MEDIUM" selected>
+                        Medium
+                    </option>
+
+                    <option value="HIGH">
+                        High
+                    </option>
+
+                    <option value="CRITICAL">
+                        Critical
+                    </option>
+
+                </select>
+
+                <!-- Optional maintenance due date -->
+                <label for="maintenance-due-date">
+                    Due Date
+                </label>
+
+                <input
+                    type="date"
+                    id="maintenance-due-date"
+                >
+
+                <!-- Submit maintenance work order -->
+                <button type="submit">
+                    Create Work Order
+                </button>
+
+                <!-- Display creation success/error messages -->
+                <p
+                    id="maintenance-message"
+                    role="status"
+                    aria-live="polite"
+                ></p>
+
+            </form>
+
+
+            <!-- =====================================
+                 EXISTING MAINTENANCE JOBS
+                 ===================================== -->
+
+            <h3>Existing Maintenance Jobs</h3>
+
+            <!-- Display maintenance status update messages -->
+            <p
+                id="maintenance-status-message"
+                role="status"
+                aria-live="polite"
+            ></p>
+
+            <!-- JavaScript inserts maintenance records -->
+            <div id="maintenance-list">
+
+            
+<!-- =====================================
+     MAINTENANCE SEARCH AND FILTERS
+     ===================================== -->
+
+<div class="filter-bar">
+
+    <!-- Search maintenance work orders -->
+    <div class="filter-field">
+
+        <label for="maintenance-search">
+            Search Maintenance
+        </label>
+
+        <input
+            type="search"
+            id="maintenance-search"
+            placeholder="Search job or equipment..."
+        >
+
+    </div>
+
+    <!-- Filter maintenance by job status -->
+    <div class="filter-field">
+
+        <label for="maintenance-status-filter">
+            Job Status
+        </label>
+
+        <select id="maintenance-status-filter">
+
+            <option value="ALL">All Statuses</option>
+
+            <option value="OPEN">Open</option>
+
+            <option value="IN_PROGRESS">
+                In Progress
+            </option>
+
+            <option value="COMPLETED">
+                Completed
+            </option>
+
+        </select>
+
+    </div>
+
+    <!-- Filter maintenance by priority -->
+    <div class="filter-field">
+
+        <label for="maintenance-priority-filter">
+            Priority
+        </label>
+
+        <select id="maintenance-priority-filter">
+
+            <option value="ALL">All Priorities</option>
+
+            <option value="LOW">Low</option>
+
+            <option value="MEDIUM">Medium</option>
+
+            <option value="HIGH">High</option>
+
+            <option value="CRITICAL">Critical</option>
+
+        </select>
+
+    </div>
+
+</div>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================
+         PAGE FOOTER
+         ===================================== -->
+
+    <footer>
+
+        <p>
+            ProductionPulse - Java Spring Boot Application
+        </p>
+
+    </footer>
+
+
+    <!-- =====================================
+         DASHBOARD JAVASCRIPT
+         ===================================== -->
+
+    <!-- Load the JavaScript after HTML has been parsed -->
+    <script src="/app.js" defer></script>
+
+</body>
+
+</html>
